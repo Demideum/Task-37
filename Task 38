@@ -1,0 +1,82 @@
+namespace Task_37
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            bool isWork = true;
+            string userInput;
+
+            List<string> staffData = new List<string>();
+            staffData.Add("Иванов - Иван - Иваныч - Директор");
+            staffData.Add("Петров - Петр - Петрович - Менеджер");
+            staffData.Add("Сидоров - Сидор - Сидорови - Повар");
+
+            while (isWork)
+            {
+                Console.Clear();
+                Console.WriteLine("Введите номер команды! \n1) добавить досье;\n2) вывести все досье;\n3) удалить досье;\n4) выход.");
+
+                userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case "1":
+                        AddProfile(staffData, ref userInput);
+                        break;
+                    case "2":
+                        ShowProfiles(staffData);
+                        Console.WriteLine("\nДля продолжения нажмите любую клавишу.");
+                        Console.ReadKey();
+                        break;
+                    case "3":
+                        DeleteProfile(staffData, ref userInput);
+                        break;
+                    case "4":
+                        Console.WriteLine("\nСпасибо что пользовались нашей программой!");
+                        isWork = false;
+                        break;
+                }
+            }
+        }
+        public static void AddProfile(List<string> files, ref string userInput)
+        {
+            Console.Write("\nВведите данные о сотруднике в формате (Иванов - Иван - Иваныч - Директор): ");
+            userInput = Console.ReadLine();
+            files.Add(userInput);
+            Console.WriteLine("\nДосье добавлено! Для продолжения нажмите любую клавишу.");
+            Console.ReadKey();
+        }
+        public static void ShowProfiles(List<string> files)
+        {
+            Console.WriteLine("\nСписок всех досье:");
+
+            foreach (var file in files)
+            {
+                Console.WriteLine($"{file}");
+            }
+        }
+        public static void DeleteProfile(List<string> files, ref string userInput)
+        {
+            bool isWork = true;
+            ShowProfiles(files);
+            Console.WriteLine("\nВведите данные о сотруднике в формате (Иванов - Иван - Иваныч - Директор) для удаления:");
+            
+            while (isWork)
+            {
+                userInput = Console.ReadLine();
+                if (files.Contains(userInput) == true)
+                {
+                    files.Remove(userInput);
+                    Console.WriteLine("\nДосье удалено! Для продолжения нажмите любую клавишу.");
+                    Console.ReadKey();
+                    isWork = false;
+                }
+                else
+                {
+                    Console.WriteLine($"Проверьте правильность ввода.");
+                }
+            }
+        }
+    }
+}
